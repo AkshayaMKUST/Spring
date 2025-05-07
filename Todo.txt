@@ -1,0 +1,82 @@
+By default spring is eager loading
+
+public abstract boolean addAddress(Address address)throws DuplicateAddressException
+
+public abstract boolean removeAddress(String firstName, String flatId)throws NoAddressFoundException, NoEntriesFoundException
+
+listAllAddress()throws NoEntriesException
+--NullPOinterException
+
+
+equals & hashcode
+java 1.5,1.6,1.7 version wise improvements
+
+NOTE:
+Serialization: process of saving the state of object permanently in the secondary memory.
+Marker or TaggedInterfaces - Serializable & Clonable Interfaces 
+??Usages, Importance, Why
+
+Encapsulation always talks about Data hiding.
+Basic unit of encapsulation - CLASS, whatever we mention inside a class it is encapsulated.
+
+Data stored in the memory location at the current point of time is called the state of an object.
+
+toString method tells the state of an object in string representation.
+
+Constructor can initialize an object only once whereas Setter can re-initialize multiple times.
+
+Why you always generate hashCodes as prime numbers?
+
+What is the need of serialVersionID?
+
+Why final keyword in the method signature?
+
+What do you mean by test driven development?
+
+Why you need overriding? - for enhancing the existing feature with new updates.
+
+
+
+
+============================================================================================================================================================
+
+What is Fail safe & fail fast iteration
+- Concurrent modification exception - In what scenario we get this exception, how to solve this?
+
+	To handle concurrent modifications to the address book, you can utilize synchronization mechanisms or concurrent data structures. Here are a few approaches you can consider:
+
+	Synchronization:
+
+	Use synchronized blocks or methods to ensure that only one thread can modify the address book at a time. This prevents concurrent modifications and avoids ConcurrentModificationException.
+	Example:
+	Copy code
+	public synchronized boolean addAddress(Address address) throws DuplicateAddressException, NullPointerException {
+    	// Add address to the address book
+	}
+
+	public synchronized boolean removeAddress(String firstName) throws NoEntriesException, NoEntryException, NullPointerException {
+    	// Remove address from the address book
+	}
+
+In a set while trying to remove user defined objects, multiple threads are running & causes concurrent modification exception.
+? RemoveAddress using Java 8
+
+What is the best practise to write instead of the below code snippet.
+try {
+    addressBookManager.addAddress(new Address("Nandini", "J", "uppal", "hyd", "Telangana", "12345"));
+    addressBookManager.addAddress(new Address("Jangiti", "Ani", "kphb", "hyd", "Telangana", "67890"));
+} catch (DuplicateAddressException | NullPointerException e) {
+    System.out.println("Error adding address: " + e.getMessage());
+}
+
+try {
+    addressBookManager.removeAddress("Nandini");
+} catch (NullPointerException | NoEntriesException | NoEntryException e) {
+    System.out.println("Error removing address: " + e.getMessage());
+}
+
+To follow order in executing the test cases
+@FixMethodOrders(MethodOrders.NAME_ASCENDING)
+
+Annotation @BeforeClass - Executes in the beginning only once even if there are multiple test cases
+@AfterClass - Executes in the end only once even if there are multiple test cases 

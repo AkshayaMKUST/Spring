@@ -1,0 +1,20 @@
+Order Manager
+Gateway kind of component
+Point of contact for external components
+OM will forward to Home office(HO)/Ring 
+
+functionalities
+1. Based on market/customer we defined some rules, based on that rules contract validation is done.
+
+If there an issue happens with order, if client is dropping some order & to know where the issue occured, 
+we have a tool Order Replay
+Calculates the due time date
+
+
+EIM
+Will receive enhanced PFO
+Does order line level enrichment(includes information like item location (aisle section zone salesfloor/backroom))
+Smart subs - getting the ordered product from other company
+
+
+

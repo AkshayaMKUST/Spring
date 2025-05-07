@@ -1,0 +1,11 @@
+MCQ Answers
+1.Jdk
+2.15Hello Hello15
+3.Define immutable data classes with concise syntax
+4.Enforce complete inheritance hierarchies for abstract classes.
+5.Ability to use expressions as case labels
+6.Automatic memory management
+7.Overloading uses different parameter types, overriding uses the same.
+8.Default
+9.Call the orElse() method with a default value as an argument.
+10.No, Java only allows single inheritance.

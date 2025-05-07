@@ -1,0 +1,19 @@
+Stream Operations
+1. map : transforms each element of a stream, and produce new stream containing transformed elements.
+
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+List<Integer> squaredNumbers = numbers.stream().map(x -> x * x)
+                        .collect(Collectors.toList());
+System.out.println(squaredNumbers);
+
+Output
+[1,4,9,16,25]
+
+2. filter : selects element from the stream that satisfies the given predicate
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+List<Integer> evenNumbers = numbers.stream().filter(n -> n % 2 == 0).collect(Collectors.toList());
+
+Output
+[2,4]
+
+3.

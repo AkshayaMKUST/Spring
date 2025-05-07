@@ -1,0 +1,246 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > EmployeeController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.employee.Employee.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: EmployeeController (com.employee.Employee.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EmployeeController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (16/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (21/21)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.employee.Employee.controller;
+&nbsp;
+&nbsp;import com.employee.Employee.entity.Employee;
+&nbsp;import com.employee.Employee.exception.EmployeeAlreadyExists;
+&nbsp;import com.employee.Employee.exception.EmployeeNotFound;
+&nbsp;import com.employee.Employee.exception.EmployeeValidationException;
+&nbsp;import com.employee.Employee.mapper.EmployeeMapper;
+&nbsp;import com.employee.Employee.repository.IEmployeeRepository;
+&nbsp;import com.employee.Employee.request.EmployeeRequest;
+&nbsp;import com.employee.Employee.response.EmployeeResponse;
+&nbsp;import com.employee.Employee.service.IEmployeeService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.validation.annotation.Validated;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;import java.math.BigDecimal;
+&nbsp;import java.util.*;
+&nbsp;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;import static com.employee.Employee.constants.CommonConstants.FILE_PATH;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@Validated
+<b class="fc">&nbsp;public class EmployeeController {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    IEmployeeService employeeService;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    IEmployeeRepository employeeRepository;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    EmployeeMapper employeeMapper;
+&nbsp;
+&nbsp;
+&nbsp;    @PostMapping(&quot;/create&quot;)
+&nbsp;    public ResponseEntity&lt;EmployeeResponse&gt; createOneEmployee(@RequestHeader(&quot;userId&quot;) String userId, @RequestBody EmployeeRequest employeeRequest) throws EmployeeAlreadyExists, EmployeeValidationException {
+<b class="fc">&nbsp;        return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.createOneEmployee(userId, employeeRequest));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @PostMapping()
+&nbsp;    public ResponseEntity&lt;List&lt;EmployeeResponse&gt;&gt; createMultipleEmployee(@RequestHeader(&quot;userId&quot;) String userId, @RequestBody List&lt;EmployeeRequest&gt; employeeRequests) throws EmployeeAlreadyExists, EmployeeValidationException {
+<b class="fc">&nbsp;      return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.createMultipleEmployee(userId, employeeRequests));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @GetMapping
+&nbsp;    public ResponseEntity&lt;List&lt;EmployeeResponse&gt;&gt; fetchEmployees() {
+<b class="fc">&nbsp;       return ResponseEntity.status(HttpStatus.ACCEPTED).body(employeeService.fetchEmployees());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;{employeeId}&quot;)
+&nbsp;    public ResponseEntity&lt;EmployeeResponse&gt; fetchEmployeeById(@PathVariable Integer employeeId) throws EmployeeNotFound {
+<b class="fc">&nbsp;        return ResponseEntity.ok(employeeService.fetchEmployeeById(employeeId));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PutMapping()
+&nbsp;    public ResponseEntity&lt;EmployeeResponse&gt; updateEmployee(String userId,@RequestBody EmployeeRequest employeeRequest) throws EmployeeNotFound {
+<b class="fc">&nbsp;        return ResponseEntity.status(HttpStatus.ACCEPTED).body(employeeService.updateEmployee(userId,employeeRequest));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @DeleteMapping(&quot;{employeeId}&quot;)
+&nbsp;    public String deleteEmployee(@PathVariable Integer employeeId) {
+<b class="fc">&nbsp;        employeeService.deleteEmployee(employeeId);</b>
+<b class="fc">&nbsp;        return &quot;Employee deleted successfully&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping(&quot;/upload&quot;)
+&nbsp;    public ResponseEntity&lt;List&lt;EmployeeResponse&gt;&gt; uploadEmployee(@RequestHeader(&quot;userId&quot;) String userId) throws IOException, EmployeeValidationException {
+<b class="fc">&nbsp;        return ResponseEntity.ok(employeeService.readFromCSV(userId, FILE_PATH));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @GetMapping(&quot;find/{skill}&quot;)
+&nbsp;    public ResponseEntity&lt;String&gt; findEmployeeBySkill(@PathVariable List&lt;String&gt; skill) {
+<b class="fc">&nbsp;        List&lt;EmployeeResponse&gt; employees = employeeService.fetchEmployees();</b>
+<b class="fc">&nbsp;        List&lt;String&gt; employeesWithSkill = findEmployeeWithSkill(employees, skill);</b>
+<b class="fc">&nbsp;        if (!employeesWithSkill.isEmpty()) {</b>
+<b class="fc">&nbsp;            return ResponseEntity.ok(&quot;Employees with &quot; + skill + &quot; skill found:&quot; + employeesWithSkill);</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(&quot;No employees with &quot; + skill + &quot; skill found!&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private List&lt;String&gt; findEmployeeWithSkill(List&lt;EmployeeResponse&gt; employees, List&lt;String&gt; requiredSkills) {
+<b class="fc">&nbsp;    return employees.stream().filter(employeeResponse -&gt; employeeResponse.getEmployeeSkills().containsAll(requiredSkills)).map(EmployeeResponse::getEmployeeName).collect(Collectors.toList());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;total&quot;)
+&nbsp;    public ResponseEntity&lt;String&gt; findTotalNumberOfEmployees() {
+<b class="fc">&nbsp;        return ResponseEntity.status(HttpStatus.ACCEPTED).body(employeeService.findTotalNumberOfEmployees());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;department&quot;)
+&nbsp;    public Map&lt;String, List&lt;String&gt;&gt; fetchEmployeesBasedOnDepartment() {
+<b class="fc">&nbsp;        return employeeService.fetchEmployeesBasedOnDepartment();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;totalSalary&quot;)
+&nbsp;    public ResponseEntity&lt;String&gt; findTotalSalaryOfEmployees() {
+<b class="fc">&nbsp;        return ResponseEntity.status(HttpStatus.ACCEPTED).body(employeeService.findTotalSalaryOfEmployees());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;totalSalaryOfDepartment&quot;)
+&nbsp;    public Map&lt;String, BigDecimal&gt; fetchSalaryBasedOnDepartment() {
+<b class="fc">&nbsp;        return employeeService.fetchSalaryBasedOnDepartment();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;sortAge&quot;)
+&nbsp;    public ResponseEntity&lt;List&lt;EmployeeResponse&gt;&gt; sortEmployeesBasedOnAge() {
+<b class="fc">&nbsp;        return ResponseEntity.status(HttpStatus.ACCEPTED).body(employeeService.sortEmployeesBasedOnAge());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;sortExperience&quot;)
+&nbsp;    public ResponseEntity&lt;List&lt;EmployeeResponse&gt;&gt; sortEmployeesBasedOnExperience(){
+<b class="fc">&nbsp;        return ResponseEntity.status(HttpStatus.ACCEPTED).body(employeeService.sortEmployeesBasedOnExperience());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;//    @PostMapping(&quot;/createWithAddress&quot;)
+&nbsp;//    public ResponseEntity&lt;Employee&gt; createEmployeeWithAddress(@RequestBody Employee employee) {
+&nbsp;//        Employee createdEmployee = employeeService.createEmployeeWithAddress(employee);
+&nbsp;//        return new ResponseEntity&lt;&gt;(createdEmployee, HttpStatus.CREATED);
+&nbsp;//    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-17 17:25</div>
+</div>
+</body>
+</html>
