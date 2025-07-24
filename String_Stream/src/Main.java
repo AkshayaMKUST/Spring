@@ -4,11 +4,18 @@ public class Main {
         StringQues stringQues = new StringQues();
         stringQues.countStrings();
         stringQues.convertCase();
+        stringQues.removeEmptyString();
         stringQues.joinedString();
+        stringQues.sortStrings();
         stringQues.removeDuplicates();
         stringQues.longestString();
-        stringQues.removeEmptyString();
-        stringQues.sortStrings();
+        stringQues.concatenateStrings();
+        stringQues.firstString();
+        stringQues.sumOfSquares();
+        stringQues.sortDescending();
+        stringQues.groupWordsByLength();
+        stringQues.findMax();
+        stringQues.countHowManyStartWithA();
         stringQues.stringReversal("Anamika");
         stringQues.listOfLists();
         stringQues.listConversion();
@@ -16,5 +23,9 @@ public class Main {
         stringQues.countOfEachLetters();
         stringQues.frequencyOfEachCharacter();
         stringQues.nthHighestElement(5);
+        stringQues.filterEvenNumbers();
+        stringQues.squareEachNumber();
+        stringQues.operationOnNumbers();
+        stringQues.namesLongerThan5();
     }
 }

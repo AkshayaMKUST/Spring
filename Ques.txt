@@ -1,0 +1,7 @@
+SELECT EMP_NAME FROM EMPLOYEES GROUP BY SALARY HAVING SALARY COUNT(*) > 50000 ORDER BY asc;
+
+
+words.stream().max(Comparator.comparingToInt(String::length)
+
+nums.stream().distinct().sorted().Collectors.toList()
+

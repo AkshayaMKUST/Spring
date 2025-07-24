@@ -46,6 +46,7 @@ public class StringQues {
 //    }
 
     public void longestString(){
+//        Optional<String> longestString = stringList.stream().max(Comparator.comparingInt(String::length));
         Optional<String> longestString = stringList.stream().max(Comparator.comparingInt(String::length));
         System.out.println("Longest String : "+longestString.get());
     }
@@ -157,6 +158,39 @@ public class StringQues {
         Optional<Integer> nthHighestElement = elements.stream().sorted().skip(n-1).findFirst();
         System.out.println(n+"th Highest element : "+nthHighestElement.get());
     }
+
+    public void filterEvenNumbers(){
+        List<Integer> numList = List.of(1,12,24,7,13,16,17,19,20);
+        List<Integer> filteredList = numList.stream().filter(n->n%2==0)
+                .collect(Collectors.toList());
+        System.out.println("Filtered Even NUmbers are : "+filteredList);
+    }
+
+    public void squareEachNumber(){
+        List<Integer> numList = List.of(2,6,8,9,15,12,14);
+        List<Integer> squareList = numList.stream().
+                map(n->n*n).toList();
+        System.out.println("Squares of the numbers are : "+squareList);
+    }
+
+    public void operationOnNumbers(){
+        List<Integer> numList = List.of(2,6,8,9,15,12,14);
+        //Find the maximum of the numbers
+        int maxNum = numList.stream().max(Integer::compareTo).get();
+        System.out.println("Maximum of the numbers is "+maxNum);
+
+        //Sort the list in the descending order
+        List<Integer> sortedDesc = numList.stream().sorted(Comparator.reverseOrder()).toList();
+        System.out.println("Sorted in descending order : "+sortedDesc);
+    }
+
+
+    public void namesLongerThan5(){
+        List<String> names = List.of("Alice", "Bob", "Charlie", "David","Johnson","Georgy");
+        List<String> groupWords = names.stream().filter(name->name.length()>5).collect(Collectors.toList());
+        System.out.println("Names with characters greater than 5 : "+groupWords);
+    }
+
 
     
 
